@@ -1,17 +1,23 @@
+# 拷贝到 build/app目录下, 执行: sudo docker build -t jkmvcapp .; sudo docker run --name jkmvcapp -d jkmvcapp:latest
+
 # 基础镜像
 FROM ubuntu
 
 # 描述
-MAINTAINER jkmvc-example
+MAINTAINER jkmvcapp
 
-# 定义匿名数据卷
-VOLUME /home/shi/test/java
+# 定义匿名数据卷, 挂到/var/lib/docker/tmp/
+# 必须是容器内部路径, 不能是宿主路径
+# 如果要使用宿主路径, 请在 docker run时用-v做好宿主与容器的路径映射
+# https://blog.csdn.net/fangford/article/details/88873104
+#VOLUME "/data1"
 
-# 解压与复制Java zip
-ADD /home/shi/setup/java/jdk/jdk-8u172-linux-x64.tar.gz /usr/local
-
-# 复制app目录
-ADD build/libs/app /app
+# 解压与复制jdk.tar.gz
+# 由于add/copy的文件必须使用上下文目录的内容, 因此要先将jdk.tar.gz拷贝到当前目录
+# https://www.367783.net/hosting/5025.html
+ADD jdk-8u172-linux-x64.tar.gz /usr/local
+COPY jkmvc-example-1.9.0.war /app/
+COPY start-jetty.sh /app/
 
 # 配置 JDK 的环境变量和字符集
 ENV JAVA_HOME /usr/local/jdk1.8.0_172
