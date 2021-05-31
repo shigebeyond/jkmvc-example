@@ -111,12 +111,38 @@ sourceSets {
 apply plugin: 'war'
 apply plugin: 'org.akhikhl.gretty'
 
+// 复制war
+task copyWar(type: Copy) {
+    into "${buildDir}/app"
+    from "${buildDir}/libs/jkmvc-example-${project.version}.war"
+}
+
 // 复制start.sh
 task copyStartSh(type: Copy) {
-    into "${buildDir}/libs"
-    from "start-jetty.sh"
+   into "${buildDir}/app"
+   from "start-jetty.sh"
 }
-build.dependsOn(copyStartSh)
+
+// 复制配置文件
+task copyConf(type: Copy) {
+   into "${buildDir}/app/conf"
+   // 需要的配置文件
+   def props = ["dataSources.yaml", "log4j.properties", "auth.yaml", "session.properties", "upload.properties" /*"db.yaml", "orm.properties", "routes.yaml", "http.yaml", "jetty.yaml" // 工程自己就打包在目录classes */]
+   // 项目 resources 目录, 来收集配置文件
+   for(src in rootProject.sourceSets.main.resources){
+      def match = props.any{ p -> src.name.endsWith(p) }
+      if(match){
+        //println(src)
+        from src
+      }
+   }
+}
+
+if (project.hasProperty("all")){
+    build.finalizedBy(copyWar)
+    build.dependsOn(copyStartSh)
+    build.dependsOn(copyConf)
+}
 
 // 启动jetty
 gretty{
