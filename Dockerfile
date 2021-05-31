@@ -28,5 +28,9 @@ ENV LANG C.UTF-8
 # 暴露端口, 跟jetty.yaml端口一样
 EXPOSE 8082
 
+# 安装unzip
+RUN apt-get update
+RUN apt-get install unzip
+
 # 启动命令
 ENTRYPOINT ["/app/start-jetty.sh"]
