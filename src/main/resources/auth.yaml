@@ -1,0 +1,3 @@
+# 认证机制
+session: net.jkcode.jkmvc.http.session.SessionAuth
+token: net.jkcode.jkmvc.http.session.TokenAuth
