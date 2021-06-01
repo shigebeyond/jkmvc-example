@@ -1,4 +1,4 @@
-# 拷贝到 build/app目录下, 执行: sudo docker build -t jkmvcapp .; sudo docker run --name jkmvcapp -d jkmvcapp:latest
+# 拷贝到 build/app目录下, 执行: sudo docker build -t jkmvcapp .; sudo docker #run --name jkmvcapp -d jkmvcapp:latest
 
 # 基础镜像
 FROM ubuntu
@@ -31,9 +31,9 @@ ENV LANG C.UTF-8
 # 暴露端口, 跟jetty.yaml端口一样
 EXPOSE 8082
 
-# 安装unzip
-RUN apt-get update
-RUN apt-get install unzip
+# 安装unzip -- 安装太久, jenkins ssh连接断开了
+#RUN apt-get update
+#RUN apt-get install unzip
 
 # 启动命令
 ENTRYPOINT ["/app/start-jetty.sh"]

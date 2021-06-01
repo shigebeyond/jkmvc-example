@@ -16,7 +16,8 @@ if [ ! -d $PRO ]; then
 	mkdir $PRO
 	cd $PRO
 	echo "解押"$WAR
-	unzip ../$WAR
+	#unzip ../$WAR
+	jar -xvf ../$WAR
 fi
 cd $DIR
 
