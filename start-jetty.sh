@@ -39,4 +39,7 @@ fi
 
 SERVER_CLASS='net.jkcode.jkmvc.server.JettyServerLauncher'
 
+# 复制servlet.jar
+cp $DIR/javax.servlet-api-3.1.0.jar $DIR/$PRO/WEB-INF/lib
+
 java $JAVA_OPTS $JAVA_DEBUG_OPTS -cp $DIR/conf:$DIR/$PRO/WEB-INF/classes:$DIR/$PRO/WEB-INF/lib/* $SERVER_CLASS
