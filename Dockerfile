@@ -16,7 +16,9 @@ MAINTAINER jkmvcapp
 # 由于add/copy的文件必须使用上下文目录的内容, 因此要先将jdk.tar.gz拷贝到当前目录
 # https://www.367783.net/hosting/5025.html
 ADD jdk-8u172-linux-x64.tar.gz /usr/local
-COPY jkmvc-example-1.9.0.war /app/
+# 由于目录名不一定是 jkmvc-example, 则不能写死
+#COPY jkmvc-example-1.9.0.war /app/
+COPY *.war /app/
 COPY start-jetty.sh /app/
 
 # 配置 JDK 的环境变量和字符集
