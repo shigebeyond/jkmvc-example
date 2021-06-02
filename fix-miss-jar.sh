@@ -5,15 +5,15 @@
 # cd build/app/
 WAR=`ls | grep .war`
 mkdir tmp
-mv jkmvc-example-1.9.0.war tmp/
+mv $WAR tmp/
 cd tmp/
 # 解压
-jar -xvf jkmvc-example-1.9.0.war
-rm jkmvc-example-1.9.0.war
+jar -xvf $WAR
+rm $WAR
 # 复制javax.servlet-api-3.1.0.jar
 cp /home/shi/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar WEB-INF/lib/
 # 重新打包
-jar -cvf jkmvc-example-1.9.0.war *
-mv jkmvc-example-1.9.0.war ..
+jar -cvf $WAR *
+mv $WAR ..
 cd ..
 rm -rf tmp
