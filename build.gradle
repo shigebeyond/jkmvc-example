@@ -127,6 +127,7 @@ task copyWar(type: Copy) {
 task copyStartSh(type: Copy) {
    into "${buildDir}/app"
    from "start-jetty.sh"
+   from "fix-miss-jar.sh"
    from "Dockerfile"
 }
 
