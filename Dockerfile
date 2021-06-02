@@ -19,7 +19,6 @@ ADD jdk-8u172-linux-x64.tar.gz /usr/local
 # 由于目录名不一定是 jkmvc-example, 则不能写死
 #COPY jkmvc-example-1.9.0.war /app/
 COPY *.war /app/
-COPY javax.servlet-api-3.1.0.jar /app/
 COPY start-jetty.sh /app/
 
 # 配置 JDK 的环境变量和字符集

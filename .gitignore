@@ -3,6 +3,7 @@ jkmvc.iml
 build/
 target/
 .gradle
+gradlew*
 gradle/
 *.log
 out/
