@@ -3,6 +3,7 @@
 
 # 在build/app/中执行
 # cd build/app/
+pwd
 WAR=`ls | grep .war`
 mkdir tmp
 mv $WAR tmp/
