@@ -12,7 +12,7 @@ cd tmp/
 jar -xvf $WAR
 rm $WAR
 # 复制javax.servlet-api-3.1.0.jar
-if [ ! -d "/home/shi/.m2" ]; then # 本地
+if [ -d "/home/shi/.m2" ]; then # 本地
     cp /home/shi/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar WEB-INF/lib/
 else # 测试服
 	cp /root/java/javax.servlet-api-3.1.0.jar WEB-INF/lib/
