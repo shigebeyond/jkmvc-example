@@ -2,6 +2,6 @@ maxThreads: 0 # io线程数, 如果为0则取Runtime.getRuntime().availableProce
 #host: localhost # The network interface this connector binds to as an IP address or a hostname.  If null or 0.0.0.0 then bind to all interfaces.
 port: 8080
 webDir: src/main/webapp
-contextPath: /
+contextPath: /jkmvc-example
 logDir: logs
 tempDir: tmp
