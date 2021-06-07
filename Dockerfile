@@ -18,8 +18,8 @@ MAINTAINER jkmvcapp
 ADD jdk-8u172-linux-x64.tar.gz /usr/local
 # 由于目录名不一定是 jkmvc-example, 则不能写死
 #COPY jkmvc-example-1.9.0.war /app/
-COPY *.war /app/
-COPY start-jetty.sh /app/
+# 复制*.war/start-jetty.sh/conf
+COPY * /app/
 
 # 配置 JDK 的环境变量和字符集
 ENV JAVA_HOME /usr/local/jdk1.8.0_172
