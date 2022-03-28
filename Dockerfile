@@ -1,39 +1,23 @@
-# 拷贝到 build/app目录下, 执行: sudo docker build -t jkmvcapp .; sudo docker #run --name jkmvcapp -d jkmvcapp:latest
+# 先执行 gradle build -x test -Pall, 后执行: sudo docker build -t jkmvcexample .; sudo docker run -d --network host --name jkmvcexample jkmvcexample
+# 访问 http://localhost:8080/
 
 # 基础镜像
-FROM ubuntu
+FROM java
 
 # 描述
-MAINTAINER jkmvcapp
+MAINTAINER jkmvcexample
 
-# 定义匿名数据卷, 挂到/var/lib/docker/tmp/
-# 必须是容器内部路径, 不能是宿主路径
-# 如果要使用宿主路径, 请在 docker run时用-v做好宿主与容器的路径映射
-# https://blog.csdn.net/fangford/article/details/88873104
-#VOLUME "/data1"
-
-# 解压与复制jdk.tar.gz
-# 由于add/copy的文件必须使用上下文目录的内容, 因此要先将jdk.tar.gz拷贝到当前目录
-# https://www.367783.net/hosting/5025.html
-ADD jdk-8u172-linux-x64.tar.gz /usr/local
-# 由于目录名不一定是 jkmvc-example, 则不能写死
-#COPY jkmvc-example-1.9.0.war /app/
-COPY *.war /app/
-COPY start-jetty.sh /app/
-COPY conf /app/conf
-
-# 配置 JDK 的环境变量和字符集
-ENV JAVA_HOME /usr/local/jdk1.8.0_172
-ENV PATH $JAVA_HOME/bin:$PATH
-ENV CLASSPATH .:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
-ENV LANG C.UTF-8
+# 复制文件
+# 由于add/copy的文件必须使用上下文目录的内容
+# COPY build/app/* /opt/xx/ -- wrong: 会将子目录中所有文件复制到/opt/jkmvcexample/，从而错误的去掉子目录那层
+COPY build/app/*.war /opt/jkmvcexample/
+COPY build/app/start-jetty.sh /opt/jkmvcexample/
+COPY build/app/javax.servlet-api-3.1.0.jar /opt/jkmvcexample/
+COPY build/app/conf /opt/jkmvcexample/conf
 
 # 暴露端口, 跟jetty.yaml端口一样
-EXPOSE 8082
+EXPOSE 8080
 
-# 安装unzip -- 安装太久, jenkins ssh连接断开了
-#RUN apt-get update
-#RUN apt-get install unzip
-
-# 启动命令
-ENTRYPOINT ["/app/start-jetty.sh"]
+# 启动命令, 要一直运行，否则命令结束会导致容器结束
+# CMD ["/bin/sh", "-c", "while true; do sleep 100; done"] # 让进程一直跑, 否则容器会exit
+ENTRYPOINT /opt/jkmvcexample/start-jetty.sh
