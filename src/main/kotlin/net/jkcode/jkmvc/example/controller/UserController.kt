@@ -15,7 +15,7 @@ import java.util.*
 
 /**
  * 用户管理
- * user manage
+ *  以下action方法的注释是为了测试yapix(将注释解析为api接口,并上传到yapi服务器)
  */
 class UserController: Controller()
 {
@@ -39,6 +39,7 @@ class UserController: Controller()
     /**
      * 列表页
      * list page
+     * @return [List<UserModel>]
      */
     public fun index()
     {
@@ -54,7 +55,8 @@ class UserController: Controller()
 
     /**
      * 详情页
-     * detail page
+     * @param id:int=0 用户id
+     * @return [UserModel]
      */
     public fun detail()
     {
@@ -76,7 +78,7 @@ class UserController: Controller()
 
     /**
      * 新建页
-     * new page
+     * @param user:UserModel
      */
     public fun new()
     {
@@ -107,6 +109,7 @@ class UserController: Controller()
     /**
      * 编辑页
      * edit page
+     * @param user:UserModel
      */
     public fun edit()
     {
@@ -143,6 +146,7 @@ class UserController: Controller()
     /**
      * 删除
      * delete action
+     * @param id:int=0 用户id
      */
     public fun delete()
     {
@@ -162,6 +166,8 @@ class UserController: Controller()
     /**
      * 上传头像
      * upload avatar
+     * @param id:int=0 用户id
+     * @param avatar:net.jkcode.jkmvc.http.PartFile 上传文件
      */
     public fun uploadAvatar()
     {
@@ -185,6 +191,8 @@ class UserController: Controller()
 
     /**
      * 登录
+     * @param username:string=admin 用户名
+     * @param password:string=123456 密码
      */
     public fun login(){
         if(req.isPost){ // post请求
@@ -199,7 +207,7 @@ class UserController: Controller()
     }
 
     /**
-     * 登录
+     * 登出
      */
     public fun logout(){
         Auth.instance().logout()
