@@ -56,6 +56,9 @@ repositories {
     maven {
         url 'http://maven.aliyun.com/nexus/content/repositories/snapshots'
     }
+    maven { // jphp
+        url "https://jitpack.io"
+    }
     mavenCentral()
     maven {
         url "http://dl.bintray.com/kotlin/kotlin"
