@@ -3,10 +3,11 @@ buildscript {
     repositories {
         mavenLocal()
         maven {
-            url 'https://maven.aliyun.com/repository/public/'
+            url 'https://maven.aliyun.com/repository/gradle-plugin/'
         }
-        jcenter()
-        mavenCentral()
+        maven {
+            url 'https://maven.aliyun.com/repository/public/' // 等价central+jcenter
+        }
         maven {
             url "http://dl.bintray.com/kotlin/kotlin"
         }
@@ -54,7 +55,7 @@ compileTestKotlin {
 repositories {
     mavenLocal()
     maven {
-        url 'https://maven.aliyun.com/repository/public/'
+        url 'https://maven.aliyun.com/repository/public/' // 等价central+jcenter
     }
     maven { // jphp
         url "https://jitpack.io"
@@ -131,7 +132,8 @@ task copyStartSh(type: Copy) {
    into "${buildDir}/app"
    from "start-jetty.sh"
    // 复制 servlet-api.jar
-   from('/home/shi/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar')
+    def mvnPath = repositories.mavenLocal().url.rawPath
+    from(mvnPath + "javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar")
 }
 
 // 复制配置文件
